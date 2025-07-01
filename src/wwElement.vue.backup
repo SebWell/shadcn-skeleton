@@ -9,9 +9,17 @@ import { cn } from './cn.js'
 export default {
   name: 'WewebSkeleton',
   props: {
-        // Individual props will be auto-generated based on the component type
-        // This is a placeholder that will be manually refined per component
-    },
+    content: {
+      type: Object,
+      required: true,
+      default: () => ({
+        width: 'auto',
+        height: 'auto',
+        shape: 'rounded',
+        customClasses: ''
+      })
+    }
+  },
   setup(props) {
     const skeletonClasses = computed(() => {
       const shapeClasses = {
@@ -22,8 +30,8 @@ export default {
       
       return cn(
         "animate-pulse bg-muted",
-        shapeClasses[props.shape] || 'rounded-md',
-        props.customClasses
+        shapeClasses[props.content.shape] || 'rounded-md',
+        props.content.customClasses
       )
     })
 
@@ -41,9 +49,9 @@ export default {
 
 <style scoped>
 .skeleton-width {
-  width: v-bind('width');
+  width: v-bind('content.width');
 }
 .skeleton-height {
-  height: v-bind('height');
+  height: v-bind('content.height');
 }
 </style> 
